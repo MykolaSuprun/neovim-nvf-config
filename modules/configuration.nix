@@ -26,7 +26,21 @@ in {
       # Fun
       cellular-automaton.enable = false;
     };
+    notify = { nvim-notify.enable = true; };
+
     filetree = { neo-tree = { enable = true; }; };
+
+    git = {
+      enable = true;
+      gitsigns.enable = true;
+      gitsigns.codeActions.enable = false; # throws an annoying debug message
+    };
+    terminal = {
+      toggleterm = {
+        enable = true;
+        lazygit.enable = true;
+      };
+    };
 
     autopairs.nvim-autopairs.enable = true;
     snippets.luasnip.enable = true;
@@ -133,12 +147,16 @@ in {
         }];
       };
     };
-    binds.whichKey = {
-      enable = true;
-      register = {
-        "<leader>c" = "Code...";
-        "<leader>d" = "Debug..";
+    binds = {
+      whichKey = {
+        enable = true;
+
+        register = {
+          "<leader>c" = "Code...";
+          "<leader>d" = "Debug..";
+        };
       };
+      cheatsheet.enable = true;
     };
   };
 }
