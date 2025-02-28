@@ -2,10 +2,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nvf.url = "github:notashelf/nvf";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
     packages."x86_64-linux" = let
+      lib = inputs.nvf.lib;
       neovimConfigured = inputs.nvf.lib.neovimConfiguration {
         inherit (nixpkgs.legacyPackages."x86_64-linux") pkgs;
         modules = [

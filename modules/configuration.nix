@@ -1,17 +1,39 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   config.vim = {
     telescope = {
       enable = true;
       setupOpts = { defaults = { path_display = [ "smart" ]; }; };
     };
 
-    #TODO: fix telescope preview scrolling
-    # luaConfigRC.lazyConfigs.telescope = lib.nvim.dag.entryAfter [
+    # #TODO: fix telescope preview scrolling
+    # luaConfigRC.telescope = lib.nvim.dag.entryAfter [
     #   "lazyConfigs"
     #   "pluginConfigs"
     # ]
     # # lua
-    #   "\n";
+    #   ''
+    #     local telescope = require('telescope')
+    #     local actions = require('telescope.actions')
+    #
+    #     -- Retrieve the existing setup
+    #     local existing_setup = telescope.setup
+    #
+    #     -- Define your custom mappings
+    #     local custom_mappings = {
+    #       i = {
+    #         ["<C-j>"] = actions.preview_scrolling_down,
+    #         ["<C-k>"] = actions.preview_scrolling_up,
+    #       },
+    #     }
+    #
+    #     -- Merge the custom mappings with the existing setup
+    #     telescope.setup(vim.tbl_deep_extend("force", existing_setup, {
+    #       defaults = {
+    #         mappings = custom_mappings,
+    #       }
+    #     }))
+    #
+    #   '';
 
     git = {
       gitsigns = {
@@ -130,14 +152,14 @@
     utility = {
       surround.enable = true;
       diffview-nvim.enable = true;
-      images.image-nvim = {
-        enable = true;
-
-        setupOpts = {
-          backend = "kitty";
-          processor = "magick_rock";
-        };
-      };
+      # images.image-nvim = {
+      #   enable = true;
+      #
+      #   setupOpts = {
+      #     backend = "kitty";
+      #     processor = "magick_rock";
+      #   };
+      # };
       # motion.precognition.enable = true;
     };
 
@@ -165,19 +187,34 @@
       };
       cheatsheet.enable = true;
     };
-    keymaps = [{
-      key = "<leader>e";
-      action =
-        # lua
-        ''
-          function()
-            require("oil").toggle_float(require("oil").get_current_dir())
-          end
-        '';
-      lua = true;
-      mode = "n";
-      desc = "Toggle file explorer";
-    }];
+    keymaps = [
+      {
+        key = "<leader>e";
+        action =
+          # lua
+          ''
+            function()
+              require("oil").toggle_float(require("oil").get_current_dir())
+            end
+          '';
+        lua = true;
+        mode = "n";
+        desc = "Toggle file explorer";
+      }
+      {
+        key = "<leader>f/";
+        action =
+          # lua
+          ''
+            function()
+              require("telescope.builtin").current_buffer_fuzzy_find()
+            end
+          '';
+        lua = true;
+        mode = "n";
+        desc = "Fuzzy find current buffer";
+      }
+    ];
     options = { backupdir = ".neovimtmp//"; };
   };
 }
