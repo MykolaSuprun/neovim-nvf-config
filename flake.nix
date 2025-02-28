@@ -8,7 +8,11 @@
     packages."x86_64-linux" = let
       neovimConfigured = inputs.nvf.lib.neovimConfiguration {
         inherit (nixpkgs.legacyPackages."x86_64-linux") pkgs;
-        modules = [ ./modules/configuration.nix ];
+        modules = [
+          ./modules/configuration.nix
+          ./modules/visual.nix
+          ./modules/extra_pkgs.nix
+        ];
       };
     in {
       # Set the default package to the wrapped instance of Neovim.

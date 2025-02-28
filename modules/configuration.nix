@@ -1,37 +1,5 @@
-{ pkgs, lib, ... }:
-let theme = "catppuccin";
-in {
+{ pkgs, ... }: {
   config.vim = {
-    theme = {
-      enable = true;
-      name = "${theme}";
-      style = "mocha";
-      transparent = false;
-    };
-    ui = {
-      # noice = { enable = true; };
-      fastaction.enable = true;
-      smartcolumn = {
-        enable = true;
-        setupOpts.custom_colorcolumn = {
-          nix = "110";
-          python = "79";
-          java = "130";
-          go = [ "90" "130" ];
-        };
-      };
-
-      # borders.enable = true;
-      breadcrumbs = {
-        enable = true;
-        navbuddy.enable = true;
-      };
-    };
-    statusline.lualine = {
-      enable = true;
-      theme = "${theme}";
-    };
-
     telescope = {
       enable = true;
       setupOpts = { defaults = { path_display = [ "smart" ]; }; };
@@ -44,32 +12,6 @@ in {
     # ]
     # # lua
     #   "\n";
-
-    visuals = {
-      nvim-scrollbar.enable = true;
-      nvim-web-devicons.enable = true;
-      nvim-cursorline = {
-        enable = true;
-        setupOpts = {
-          cursorword = {
-            enable = true;
-            hl.underline = true;
-          };
-        };
-      };
-      cinnamon-nvim.enable = true;
-      fidget-nvim.enable = true;
-      highlight-undo.enable = true;
-      indent-blankline.enable = true;
-      cellular-automaton.enable = true;
-    };
-
-    notify = {
-      nvim-notify = {
-        enable = true;
-        setupOpts.timeout = 2000;
-      };
-    };
 
     git = {
       gitsigns = {
@@ -100,6 +42,7 @@ in {
 
     autopairs.nvim-autopairs.enable = true;
     snippets.luasnip.enable = true;
+
     autocomplete.nvim-cmp = {
       enable = true;
       mappings = {
@@ -187,39 +130,15 @@ in {
     utility = {
       surround.enable = true;
       diffview-nvim.enable = true;
-      # motion.precognition.enable = true;
-    };
+      images.image-nvim = {
+        enable = true;
 
-    lazy.plugins = {
-      "actions-preview.nvim" = {
-        package = pkgs.vimPlugins.actions-preview-nvim;
-        setupModule = "actions-preview";
         setupOpts = {
-          telescope = {
-            sorting_strategy = "ascending";
-            layout_strategy = "vertical";
-            layout_config = {
-              width = 0.8;
-              height = 0.9;
-              prompt_position = "top";
-              preview_cutoff = 20;
-            };
-          };
+          backend = "kitty";
+          processor = "magick_rock";
         };
-        lazy = true;
-        # load on event
-        # event = [ "BufEnter" ];
-        # load on keymap
-        keys = [{
-          key = "<leader>ca";
-          action =
-            # lua
-            ''require("actions-preview").code_actions()'';
-          lua = true;
-          mode = [ "n" "v" ];
-          desc = "Code actions";
-        }];
       };
+      # motion.precognition.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; {
@@ -232,6 +151,7 @@ in {
           '';
       };
     };
+
     startPlugins = with pkgs.vimPlugins; [ oil-nvim ];
 
     binds = {
@@ -257,15 +177,7 @@ in {
       lua = true;
       mode = "n";
       desc = "Toggle file explorer";
-    }
-
-    # {
-    #   key = "C-S-j";
-    #   action = ''
-    #     function()
-    #   ''
-    # }
-      ];
+    }];
     options = { backupdir = ".neovimtmp//"; };
   };
 }
