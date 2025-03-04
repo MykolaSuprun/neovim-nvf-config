@@ -5,7 +5,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: {
     packages."x86_64-linux" = let
       lib = inputs.nvf.lib;
       neovimConfigured = inputs.nvf.lib.neovimConfiguration {

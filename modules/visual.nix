@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-let theme = "catppuccin";
+{pkgs, ...}: let
+  theme = "catppuccin";
 in {
   config.vim = {
     theme = {
@@ -10,7 +10,7 @@ in {
     };
 
     ui = {
-      # noice = { enable = true; };
+      noice = {enable = true;};
       fastaction.enable = true;
       smartcolumn = {
         enable = true;
@@ -18,7 +18,7 @@ in {
           nix = "110";
           python = "79";
           java = "130";
-          go = [ "90" "130" ];
+          go = ["90" "130"];
         };
       };
 
