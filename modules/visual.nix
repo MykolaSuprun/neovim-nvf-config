@@ -2,6 +2,23 @@
   theme = "catppuccin";
 in {
   config.vim = {
+    luaConfigPost =
+      /*
+      lua
+      */
+      ''
+        local colorscheme = vim.env.SYS_THEME or "catppuccin-mocha"
+        vim.cmd("colorscheme " .. colorscheme)
+      '';
+    options = {
+      # use spaces instead of tabs
+      expandtab = true;
+      # set tab lenght and indent shift to 2
+      tabstop = 2;
+      shiftwidth = 2;
+      # round indents
+      shiftround = true;
+    };
     theme = {
       enable = true;
       name = "${theme}";
